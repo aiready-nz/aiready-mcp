@@ -49,34 +49,50 @@ Add `aiready-nz` to your Claude Desktop configuration file:
     }
   }
 }
-Restart Claude Desktop. When you start a chat, you will see the hammer icon with aiready tools available.
+```
+*Restart Claude Desktop. When you start a chat, you will see the hammer icon with `aiready` tools available.*
 
-2. Cursor IDE
+---
+
+### 2. Cursor IDE
+
 In Cursor:
+1. Open **Settings** (`Cmd+,` or `Ctrl+,`) → **Features** → **MCP**.
+2. Click **+ Add New MCP Server**.
+3. Fill in:
+   - **Name:** `aiready`
+   - **Type:** `command`
+   - **Command:** `npx -y mcp-remote https://aiready.nz/mcp`
+4. Refresh the server list.
 
-Open Settings (Cmd+, or Ctrl+,) → Features → MCP.
-Click + Add New MCP Server.
-Fill in:
-Name: aiready
-Type: command
-Command: npx -y mcp-remote https://aiready.nz/mcp
-Refresh the server list.
-Security & Privacy Guarantees
+---
+
+## Security & Privacy Guarantees
+
 AIready follows strict zero-trust standards for agentic connections:
 
-Zero Autonomous Spending: prepare_readiness_order creates a draft order requiring explicit human intake approval and Stripe/Solana customer signature. The AI cannot charge cards or move crypto funds on its own.
-Customer-Scoped Data: Private reports are protected by Row-Level Security (RLS). An agent with OAuth token A can never see or list reports belonging to token B.
-Passive Scanning Only: scan_domain only makes standard passive HTTP requests to publicly visible endpoints (robots.txt, llms.txt, DNSSEC, sitemaps). It never runs vulnerability probes, penetration tests, or intrusive scans.
-No Master Keys: The MCP server never uses or exposes service-role database keys. All queries run strictly within the caller's authorized permissions.
-About AIready
-AIready is an Auckland-based agency helping New Zealand businesses prepare for:
+1. **Zero Autonomous Spending:** `prepare_readiness_order` creates a draft order requiring explicit human intake approval and Stripe/Solana customer signature. The AI cannot charge cards or move crypto funds on its own.
+2. **Customer-Scoped Data:** Private reports are protected by Row-Level Security (RLS). An agent with OAuth token A can **never** see or list reports belonging to token B.
+3. **Passive Scanning Only:** `scan_domain` only makes standard passive HTTP requests to publicly visible endpoints (`robots.txt`, `llms.txt`, DNSSEC, sitemaps). It never runs vulnerability probes, penetration tests, or intrusive scans.
+4. **No Master Keys:** The MCP server never uses or exposes service-role database keys. All queries run strictly within the caller's authorized permissions.
 
-AEO (Answer Engine Optimisation): Ranking in Perplexity, ChatGPT Search, and Copilot.
-GEO (Generative Engine Optimisation): Structured data and authority citations for AI summary engines.
-Agentic Commerce: Machine-readable product discovery, MCP servers, and agent-ready checkout systems.
-Free Resources
-Free Instant AI Readiness Scan
-Agent Discovery Manifest (llms.txt)
-OAuth Discovery Details
-License
-This repository and MCP server configuration documentation are licensed under the MIT License.
+---
+
+## About AIready
+
+[AIready](https://aiready.nz) is an Auckland-based agency helping New Zealand businesses prepare for:
+
+- **AEO (Answer Engine Optimisation):** Ranking in Perplexity, ChatGPT Search, and Copilot.
+- **GEO (Generative Engine Optimisation):** Structured data and authority citations for AI summary engines.
+- **Agentic Commerce:** Machine-readable product discovery, MCP servers, and agent-ready checkout systems.
+
+### Free Resources
+- [Free Instant AI Readiness Scan](https://aiready.nz/)
+- [Agent Discovery Manifest (`llms.txt`)](https://aiready.nz/llms.txt)
+- [OAuth Discovery Details](https://aiready.nz/connect)
+
+---
+
+## License
+
+This repository and MCP server configuration documentation are licensed under the [MIT License](https://opensource.org/licenses/MIT).
