@@ -47,20 +47,18 @@ ChatGPT and Claude.ai custom connectors: add https://aiready.nz/mcp and follow t
 
 ## Security and privacy
 
-OAuth only. No API keys and no shared passwords. Never paste a browser session token.
-Your data only. Report tools return only reports owned by the signed-in account.
-No spending. No tool creates orders or charges payments. A human always approves a purchase.
-Passive scans. scan_domain makes only standard public requests (robots.txt, sitemap, homepage, llms.txt). It doesn't store who asked.
-Discovery: server card · auth reference
+- **OAuth only.** No API keys and no shared passwords. Never paste a browser session token.
+- **Your data only.** Report tools return only reports owned by the signed-in account.
+- **No spending.** No tool creates orders or charges payments. A human always approves a purchase.
+- **Passive scans.** `scan_domain` makes only standard public requests (robots.txt, sitemap, homepage, llms.txt). It doesn't store who asked.
+- Discovery: [server card](https://aiready.nz/.well-known/mcp/server-card.json) · [auth reference](https://aiready.nz/auth.md)
 
 ## About AIready
-AIready helps New Zealand businesses show up in ChatGPT, Claude, Gemini and Perplexity answers. Start with a free AI scan or an Agentic Readiness Check for NZ$19 incl. GST.
+
+AIready helps New Zealand businesses show up in ChatGPT, Claude, Gemini and Perplexity answers. Start with a [free AI scan](https://aiready.nz/scan) or an [Agentic Readiness Check](https://aiready.nz/agentic-readiness-check) for NZ$19 incl. GST.
 
 Contact: hello@aiready.nz
 
 ## License
-This repository and MCP server configuration documentation are licensed under the MIT License.
 
----
-
-
+MIT
