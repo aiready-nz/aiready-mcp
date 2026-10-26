@@ -1,98 +1,66 @@
-# AIready MCP Server (`aiready-nz`)
+# AIready MCP server (aiready-nz)
 
-[![MCP](https://img.shields.io/badge/MCP-1.0-brightgreen.svg)](https://modelcontextprotocol.io/)
-[![OAuth 2.0](https://img.shields.io/badge/Auth-OAuth%202.0-blue.svg)](https://aiready.nz/connect)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Status](https://img.shields.io/badge/Status-Live-success.svg)](https://aiready.nz/mcp)
+Official Model Context Protocol (MCP) connector for **AIready** ([aiready.nz](https://aiready.nz)), an Auckland, New Zealand AEO, GEO and agentic-commerce audit service.
 
-The official [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) server for **[AIready](https://aiready.nz)**. 
+- **Endpoint:** `https://aiready.nz/mcp` (Streamable HTTP)
+- **Sign-in:** OAuth. Every tool needs you to sign in to your AIready account and approve the connection.
+- **Server name:** `aiready-nz` · **Display name:** AIready
+- **Full setup guide:** https://aiready.nz/connect
 
-This server allows AI assistants (Claude Desktop, Cursor, ChatGPT, and custom autonomous agents) to scan New Zealand websites for AI readiness (AEO, GEO, agentic commerce), retrieve previous audits, and prepare readiness orders.
+> Not affiliated with ai-ready.nz, aiready.co.nz, getaiready.now, or the `getaiready` / `@aiready/mcp-server` code-analysis package.
 
-- **Server ID:** `aiready-nz`
-- **MCP Endpoint:** `https://aiready.nz/mcp`
-- **Transport:** Streamable HTTP (SSE)
-- **Authentication:** OAuth 2.0 Protected Resource (Customer-scoped)
+## Tools
 
----
+| Tool | What it does | Changes anything? |
+|---|---|---|
+| `scan_domain` | Free passive scan of a public website: 0–100 score, readiness level, findings and any warnings | No |
+| `prepare_readiness_order` | Quotes an Agentic Readiness Check (NZ$19 incl. GST or 12 USDC) with a link for a human to review and pay | No. Creates no order and takes no payment |
+| `list_my_reports` | Lists your own AIready reports, newest first (up to 50) | No |
+| `get_report` | Reads one of your own reports by ID | No |
 
-## Available Tools
+## Connect
 
-| Tool | Access | Description |
-| :--- | :--- | :--- |
-| `scan_domain` | **Public** | Runs a live, passive AI readiness check on any domain and returns a score (0–100), letter grade (A–F), and category breakdowns. |
-| `prepare_readiness_order` | **OAuth Required** | Prepares a formal readiness check order for customer intake (`NZ$195 incl. GST` or `1 USDC` test). Does **not** charge cards or spend funds automatically. |
-| `list_my_reports` | **OAuth Required** | Lists all previous audit reports owned by the authenticated user. Protected by Row-Level Security (RLS). |
-| `get_report` | **OAuth Required** | Retrieves the full structured JSON findings for a specific report owned by the authenticated caller. |
-
----
-
-## Quick Setup
-
-### 1. Claude Desktop
-
-Add `aiready-nz` to your Claude Desktop configuration file:
-
-- **macOS:** `~/Library/Application Support/Claude/claude_desktop_config.json`
-- **Windows:** `%APPDATA%\Claude\claude_desktop_config.json`
-
-```json
+**Claude Code**
+```bash
+claude mcp add --transport http aiready-nz https://aiready.nz/mcp
+```
+## Cursor (Settings → Tools & MCP → Add Custom MCP)
+```
 {
   "mcpServers": {
-    "aiready": {
+    "aiready-nz": { "url": "https://aiready.nz/mcp" }
+  }
+}
+```
+## Claude Desktop (claude_desktop_config.json)
+```
+{
+  "mcpServers": {
+    "aiready-nz": {
       "command": "npx",
-      "args": [
-        "-y",
-        "mcp-remote",
-        "https://aiready.nz/mcp"
-      ]
+      "args": ["-y", "mcp-remote", "https://aiready.nz/mcp"]
     }
   }
 }
 ```
-*Restart Claude Desktop. When you start a chat, you will see the hammer icon with `aiready` tools available.*
+ChatGPT and Claude.ai custom connectors: add https://aiready.nz/mcp and follow the sign-in prompt. See https://aiready.nz/connect.
 
----
+## Security and privacy
 
-### 2. Cursor IDE
-
-In Cursor:
-1. Open **Settings** (`Cmd+,` or `Ctrl+,`) → **Features** → **MCP**.
-2. Click **+ Add New MCP Server**.
-3. Fill in:
-   - **Name:** `aiready`
-   - **Type:** `command`
-   - **Command:** `npx -y mcp-remote https://aiready.nz/mcp`
-4. Refresh the server list.
-
----
-
-## Security & Privacy Guarantees
-
-AIready follows strict zero-trust standards for agentic connections:
-
-1. **Zero Autonomous Spending:** `prepare_readiness_order` creates a draft order requiring explicit human intake approval and Stripe/Solana customer signature. The AI cannot charge cards or move crypto funds on its own.
-2. **Customer-Scoped Data:** Private reports are protected by Row-Level Security (RLS). An agent with OAuth token A can **never** see or list reports belonging to token B.
-3. **Passive Scanning Only:** `scan_domain` only makes standard passive HTTP requests to publicly visible endpoints (`robots.txt`, `llms.txt`, DNSSEC, sitemaps). It never runs vulnerability probes, penetration tests, or intrusive scans.
-4. **No Master Keys:** The MCP server never uses or exposes service-role database keys. All queries run strictly within the caller's authorized permissions.
-
----
+OAuth only. No API keys and no shared passwords. Never paste a browser session token.
+Your data only. Report tools return only reports owned by the signed-in account.
+No spending. No tool creates orders or charges payments. A human always approves a purchase.
+Passive scans. scan_domain makes only standard public requests (robots.txt, sitemap, homepage, llms.txt). It doesn't store who asked.
+Discovery: server card · auth reference
 
 ## About AIready
+AIready helps New Zealand businesses show up in ChatGPT, Claude, Gemini and Perplexity answers. Start with a free AI scan or an Agentic Readiness Check for NZ$19 incl. GST.
 
-[AIready](https://aiready.nz) is an Auckland-based agency helping New Zealand businesses prepare for:
+Contact: hello@aiready.nz
 
-- **AEO (Answer Engine Optimisation):** Ranking in Perplexity, ChatGPT Search, and Copilot.
-- **GEO (Generative Engine Optimisation):** Structured data and authority citations for AI summary engines.
-- **Agentic Commerce:** Machine-readable product discovery, MCP servers, and agent-ready checkout systems.
-
-### Free Resources
-- [Free Instant AI Readiness Scan](https://aiready.nz/)
-- [Agent Discovery Manifest (`llms.txt`)](https://aiready.nz/llms.txt)
-- [OAuth Discovery Details](https://aiready.nz/connect)
+## License
+This repository and MCP server configuration documentation are licensed under the MIT License.
 
 ---
 
-## License
 
-This repository and MCP server configuration documentation are licensed under the [MIT License](https://opensource.org/licenses/MIT).
