@@ -1,4 +1,9 @@
 # AIready MCP server (aiready-nz)
+# AIready MCP
+
+[![MCP servers live](https://whobuildsagents.com/badge/aiready.nz.svg)](https://whobuildsagents.com/aiready.nz)
+
+Can AI agents find, read, trust and buy from your website?...
 
 Official Model Context Protocol (MCP) connector for **AIready** ([aiready.nz](https://aiready.nz)), an Auckland, New Zealand AEO, GEO and agentic-commerce audit service.
 
