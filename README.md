@@ -1,6 +1,4 @@
 # AIready MCP server (aiready-nz)
-# AIready MCP
-
 [![MCP servers live](https://whobuildsagents.com/badge/aiready.nz.svg)](https://whobuildsagents.com/aiready.nz)
 
 Can AI agents find, read, trust and buy from your website?...
